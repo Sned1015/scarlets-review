@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scarlets Senior Academy - End of Season Reflection</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #CC0000; --dark: #111; --mid: #555; --light: #888;
+    --border: #ddd; --bg: #f6f6f6; --card: #fff;
+    --invest: #1a56c4; --compete: #c06010; --deliver: #1a6e2e;
+    --invest-bg: #dceeff; --compete-bg: #fff0dc; --deliver-bg: #dff5e3;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; background: var(--bg); color: var(--dark); font-size: 15px; line-height: 1.6; }
+  .page { max-width: 700px; margin: 0 auto; padding: 0 0 60px; }
+  .header { background: var(--red); color: #fff; padding: 28px 24px 22px; }
+  .header-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .75; margin-bottom: 6px; }
+  .header h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+  .header-sub { font-size: 13px; opacity: .8; }
+  .section { padding: 24px; border-bottom: 1px solid var(--border); background: var(--card); }
+  .section-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--red); margin-bottom: 16px; }
+  .player-name { font-size: 20px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+  .player-hint { font-size: 13px; color: var(--light); }
+  .attr-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+  .attr-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .attr-title { font-size: 15px; font-weight: 600; }
+  .tag { font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 20px; }
+  .tag-invest { background: var(--invest-bg); color: var(--invest); }
+  .tag-compete { background: var(--compete-bg); color: var(--compete); }
+  .tag-deliver { background: var(--deliver-bg); color: var(--deliver); }
+  .sub-q { font-size: 13px; color: var(--mid); margin-bottom: 4px; }
+  .rating-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .rating-label { font-size: 12px; color: var(--light); min-width: 72px; }
+  .stars { display: flex; gap: 5px; }
+  .star { width: 36px; height: 36px; border-radius: 8px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: var(--light); transition: all .12s; -webkit-tap-highlight-color: transparent; }
+  .star.active { background: var(--red); color: #fff; border-color: var(--red); }
+  .scale-key { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .scale-chip { font-size: 12px; padding: 4px 10px; border-radius: 20px; background: var(--bg); border: 1px solid var(--border); color: var(--mid); }
+  .scale-chip strong { color: var(--red); }
+  table.skill-table { width: 100%; border-collapse: collapse; }
+  .skill-table th { font-size: 12px; font-weight: 500; color: var(--light); padding: 8px 6px; text-align: left; border-bottom: 1.5px solid var(--border); }
+  .skill-table th.center { text-align: center; }
+  .skill-table td { padding: 10px 6px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .skill-table td.center { text-align: center; }
+  .skill-name { font-size: 14px; font-weight: 500; }
+  .start-badge { display: inline-block; min-width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 6px; background: #e8e8e8; color: #666; font-weight: 700; font-size: 15px; }
+  .self-stars { display: flex; gap: 4px; justify-content: center; }
+  .self-star { width: 32px; height: 32px; border-radius: 6px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(--light); transition: all .12s; -webkit-tap-highlight-color: transparent; }
+  .self-star.sel { background: var(--red); color: #fff; border-color: var(--red); }
+  textarea { width: 100%; min-height: 90px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical; background: var(--bg); color: var(--dark); }
+  textarea:focus { outline: none; border-color: var(--red); }
+  .q-label { font-size: 13px; font-weight: 600; color: var(--mid); margin-bottom: 4px; }
+  .q-sub { font-size: 12px; color: var(--light); margin-bottom: 8px; }
+  .reflect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 520px) { .reflect-grid { grid-template-columns: 1fr; } .self-stars { gap: 3px; } .self-star { width: 28px; height: 28px; font-size: 11px; } }
+  .pillar-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .pillar-info { flex: 1; min-width: 160px; }
+  .pillar-title { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+  .pillar-desc { font-size: 12px; color: var(--light); }
+  .submit-wrap { padding: 24px; background: var(--card); }
+  .submit-btn { width: 100%; background: var(--red); color: #fff; border: none; padding: 16px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
+  .submit-btn:disabled { opacity: .5; cursor: default; }
+  .toast { display: none; background: #1a6e2e; color: #fff; padding: 16px 20px; border-radius: 10px; margin: 16px 0 0; font-size: 14px; font-weight: 500; }
+  .toast.show { display: block; }
+  .error-msg { color: var(--red); font-size: 13px; margin-top: 10px; display: none; }
+  .error-msg.show { display: block; }
+
+  /* ── Player selector screen ── */
+  .selector-wrap { padding: 28px 24px; background: var(--card); }
+  .selector-wrap h2 { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+  .selector-wrap p { font-size: 13px; color: var(--light); margin-bottom: 20px; }
+  .player-list { display: flex; flex-direction: column; gap: 8px; max-height: 70vh; overflow-y: auto; }
+  .player-btn { text-align: left; background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 13px 16px; font-size: 15px; font-weight: 500; cursor: pointer; color: var(--dark); transition: border-color .12s; }
+  .player-btn:hover { border-color: var(--red); color: var(--red); }
+  .selector-note { font-size: 11px; color: var(--light); margin-top: 16px; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="header-label">Scarlets Senior Academy</div>
+    <h1>End of season self-reflection</h1>
+    <div class="header-sub">2025-26 &middot; Here 2 Compete</div>
+  </div>
+  <div id="app"></div>
+</div>
+
+<script>
+const PLAYERS = [{"name": "Osian Williams", "ratings": {"Ball carry": 4, "Attacking breakdown": 5, "Tackle entry": 4, "Scanning & speed to set": 4, "Handling": 5, "Lineout": 4, "Positioning": 4, "Off-field habits": 6}, "id": "T3NpYW4gV2lsbGlhbXM"}, {"name": "Carwyn Jones", "ratings": {"Ball carry": 3, "Attacking breakdown": 2, "Tackle entry": 4, "Scanning & speed to set": 5, "Handling": 5, "Kicking": 6, "Game management": 5, "Off-field habits": 3}, "id": "Q2Fyd3luIEpvbmVz"}, {"name": "Sion Jones", "ratings": {"Ball carry": 3, "Attacking breakdown": 2, "Tackle entry": 4, "Scanning & speed to set": 4, "Handling": 4, "High Balls": 3, "Kick counter": 4, "Off-field habits": 3}, "id": "U2lvbiBKb25lcw"}, {"name": "Joe Denman", "ratings": {"Ball carry": 5, "Attacking breakdown": 6, "Tackle entry": 5, "Scanning & speed to set": 4, "Handling": 4, "Jackal": 4, "Lineout": 4, "Off-field habits": 5}, "id": "Sm9lIERlbm1hbg"}, {"name": "Jac Pritchard", "ratings": {"Ball carry": 3, "Attacking breakdown": 3, "Tackle entry": 3, "Scanning & speed to set": 2, "Handling": 4, "Scrummaging": 4, "Line outs": 5, "Off-field habits": 6}, "id": "SmFjIFByaXRjaGFyZA"}, {"name": "Tom Phillips", "ratings": {"Ball carry": 5, "Attacking breakdown": 5, "Tackle entry": 4, "Scanning & speed to set": 4, "Handling": 4, "Scrummaging": 5, "Lineout Lifting and finishing C.I.P": 6, "Off-field habits": 6}, "id": "VG9tIFBoaWxsaXBz"}, {"name": "Gabriel McDonald", "ratings": {"Ball carry": 5, "Attacking breakdown": 4, "Tackle entry": 3, "Scanning & speed to set": 4, "Handling": 4, "Comms organisation": 3, "Getting thorough contact and offloading": 4, "Off-field habits": 6}, "id": "R2FicmllbCBNY0RvbmFsZA"}, {"name": "Steff jac", "ratings": {"Ball carry": 3, "Attacking breakdown": 4, "Tackle entry": 5, "Scanning & speed to set": 5, "Handling": 5, "Game management": 5, "Kicking": 5, "Off-field habits": 5}, "id": "U3RlZmYgamFj"}, {"name": "Thomas Williams", "ratings": {"Ball carry": 3, "Attacking breakdown": 3, "Tackle entry": 2, "Scanning & speed to set": 2, "Handling": 2, "High balls": 2, "Kicking": 2, "Off-field habits": 4}, "id": "VGhvbWFzIFdpbGxpYW1z"}, {"name": "Kai Jones", "ratings": {"Ball carry": 6, "Attacking breakdown": 6, "Tackle entry": 5, "Scanning & speed to set": 4, "Handling": 4, "Maul defence": 6, "Carrying": 6, "Off-field habits": 5}, "id": "S2FpIEpvbmVz"}, {"name": "Callum Woolley", "ratings": {"Ball carry": 3, "Attacking breakdown": 3, "Tackle entry": 3, "Scanning & speed to set": 4, "Handling": 3, "High balls": 5, "Release": 3, "Off-field habits": 3}, "id": "Q2FsbHVtIFdvb2xsZXk"}, {"name": "Morsey", "ratings": {"Ball carry": 6, "Attacking breakdown": 4, "Tackle entry": 4, "Scanning & speed to set": 4, "Handling": 4, "Dominant carries": 5, "Dominant tackling": 5, "Off-field habits": 6}, "id": "TW9yc2V5"}, {"name": "Samuel Williams", "ratings": {"Ball carry": 2, "Attacking breakdown": 2, "Tackle entry": 2, "Scanning & speed to set": 2, "Handling": 2, "Lineout jumping": 2, "Scrum": 3, "Off-field habits": 3}, "id": "U2FtdWVsIFdpbGxpYW1z"}, {"name": "Yestyn cook", "ratings": {"Ball carry": 1, "Attacking breakdown": 1, "Tackle entry": 1, "Scanning & speed to set": 1, "Handling": 1, "Scrummaging": 2, "Line out": 3, "Off-field habits": 4}, "id": "WWVzdHluIGNvb2s"}, {"name": "Dom kossuth", "ratings": {"Ball carry": 5, "Attacking breakdown": 4, "Tackle entry": 5, "Scanning & speed to set": 5, "Handling": 5, "Lineouts": 4, "Jackling": 4, "Off-field habits": 6}, "id": "RG9tIGtvc3N1dGg"}, {"name": "Dylan alford", "ratings": {"Ball carry": 3, "Attacking breakdown": 3, "Tackle entry": 3, "Scanning & speed to set": 3, "Handling": 3, "Lineout": 4, "Scrum": 4, "Off-field habits": 4}, "id": "RHlsYW4gYWxmb3Jk"}, {"name": "Iori Badham", "ratings": {"Ball carry": 4, "Attacking breakdown": 4, "Tackle entry": 3, "Scanning & speed to set": 5, "Handling": 4, "aerial ability": 4, "counter attack, identifying weaknesses in oppositions kick chase": 5, "Off-field habits": 5}, "id": "SW9yaSBCYWRoYW0"}, {"name": "keanu", "ratings": {"Ball carry": 5, "Attacking breakdown": 4, "Tackle entry": 3, "Scanning & speed to set": 3, "Handling": 3, "Set piece Lineout": 1, "Set piece Scrum": 1, "Off-field habits": 6}, "id": "a2VhbnU"}, {"name": "Tiaan sparrow", "ratings": {"Ball carry": 4, "Attacking breakdown": 5, "Tackle entry": 4, "Scanning & speed to set": 3, "Handling": 5, "Attack in wide channels": 5, "Breakdown": 5, "Off-field habits": 6}, "id": "VGlhYW4gc3BhcnJvdw"}, {"name": "Will Evans", "ratings": {"Ball carry": 6, "Attacking breakdown": 5, "Tackle entry": 5, "Scanning & speed to set": 5, "Handling": 5, "Lineout jumping": 4, "Scrummaging": 5, "Off-field habits": 5}, "id": "V2lsbCBFdmFucw"}, {"name": "Elis Price", "ratings": {"Ball carry": 3, "Attacking breakdown": 5, "Tackle entry": 4, "Scanning & speed to set": 4, "Handling": 5, "Passing": 4, "Kicking": 6, "Off-field habits": 5}, "id": "RWxpcyBQcmljZQ"}, {"name": "Gryff Watkins", "ratings": {"Ball carry": 6, "Attacking breakdown": 4, "Tackle entry": 5, "Scanning & speed to set": 5, "Handling": 6, "Offloading": 6, "Kicking": 4, "Off-field habits": 5}, "id": "R3J5ZmYgV2F0a2lucw"}, {"name": "Isaac Young", "ratings": {"Ball carry": 6, "Attacking breakdown": 7, "Tackle entry": 5, "Scanning & speed to set": "-", "Handling": "-", "Throwing": 6, "Scrummaging": 6, "Off-field habits": 7}, "id": "SXNhYWMgWW91bmc"}, {"name": "Harry Thomas", "ratings": {"Ball carry": 4, "Attacking breakdown": 4, "Tackle entry": 6, "Scanning & speed to set": 5, "Handling": 6, "Hooker throwing": 4, "Scrum": 5, "Off-field habits": "-"}, "id": "SGFycnkgVGhvbWFz"}];
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyC6yHBCDoVbPT1otR-scOVgr03F7ew9OpX6k4TCi-9hU83LRVELb9pWIJOsXlk0c9/exec';
+
+const ATTRS = [
+  { id:'leadership', label:'Leadership', tag:'Compete', tagCls:'tag-compete',
+    qs:['I set the standard in training - my effort and attitude is something others follow',
+        'I speak up in the hard moments, not just when things are easy',
+        'I take ownership of team performance, not just my own'] },
+  { id:'coachability', label:'Coachability', tag:'Invest', tagCls:'tag-invest',
+    qs:['I act on feedback immediately - I dont nod and repeat the same mistake',
+        'I ask questions that show Im trying to understand the game more deeply',
+        'I invest in my development between sessions without being told to'] },
+  { id:'toughness', label:'Toughness', tag:'Compete', tagCls:'tag-compete',
+    qs:['I compete hard when tired, underperforming or things arent going my way',
+        'I dont avoid the collision or the difficult moment - I run towards it',
+        'My body language and intensity stays high under pressure'] },
+  { id:'workethic', label:'Work ethic', tag:'Invest', tagCls:'tag-invest',
+    qs:['My preparation is elite - recovery, nutrition, sleep, extra reps',
+        'I turn up ready, focused and on time - every session',
+        'If my teammates described my work rate, theyd say it pushes them'] },
+  { id:'resilience', label:'Resilience', tag:'Deliver', tagCls:'tag-deliver',
+    qs:['I bounce back quickly - from errors, selection decisions, injuries',
+        'I dont let one bad moment affect the next one',
+        'I finished this season stronger than I started it, regardless of what happened'] },
+  { id:'selfawareness', label:'Self-awareness', tag:'Deliver', tagCls:'tag-deliver',
+    qs:['I have an honest, accurate picture of where I am on the scale - not inflated, not underselling',
+        'I can clearly name what is blocking my development right now',
+        'I understand how my behaviour and energy affects the environment around me'] },
+];
+
+const SCALE_LABELS = {
+  1:'18s international', 2:'Welsh prem / Wales 19s', 3:'SRC ready',
+  4:'SRC silver / Wales 20s', 5:'SRC gold / best Wales 20s',
+  6:'Senior squad ready', 7:'Senior squad starter'
+};
+
+const PILLARS = [
+  {id:'invest', label:'Invest', tagCls:'tag-invest', desc:'Preparation, coachability, off-field habits, growth mindset'},
+  {id:'compete', label:'Compete', tagCls:'tag-compete', desc:'Training intensity, leadership, standards, toughness'},
+  {id:'deliver', label:'Deliver', tagCls:'tag-deliver', desc:'Performance consistency, resilience, output on the pitch'},
+];
+
+let attrRatings = {}, skillRatings = {}, pillarRatings = {};
+
+function getPlayerFromURL() {
+  const id = new URLSearchParams(window.location.search).get('player');
+  if (!id) return null;
+  return PLAYERS.find(p => p.id === id) || null;
+}
+
+function renderSelector() {
+  const list = PLAYERS.map(p =>
+    `<button class="player-btn" onclick="loadPlayer('${p.id}')">${p.name}</button>`
+  ).join('');
+  document.getElementById('app').innerHTML = `
+    <div class="selector-wrap">
+      <h2>Select your name</h2>
+      <p>This is a preview - when players open their personal link, the form loads directly with their name and ratings pre-filled.</p>
+      <div class="player-list">${list}</div>
+      <div class="selector-note">Players will not see this screen - they will go straight to their own form via their WhatsApp link.</div>
+    </div>`;
+}
+
+function loadPlayer(id) {
+  attrRatings = {}; skillRatings = {}; pillarRatings = {};
+  const player = PLAYERS.find(p => p.id === id);
+  if (player) renderForm(player);
+}
+
+function renderForm(player) {
+  const skills = Object.entries(player.ratings);
+
+  const attrsHTML = ATTRS.map(a => `
+    <div class="attr-card">
+      <div class="attr-header">
+        <span class="attr-title">${a.label}</span>
+        <span class="tag ${a.tagCls}">${a.tag}</span>
+      </div>
+      ${a.qs.map(q => `<div class="sub-q">&middot; ${q}</div>`).join('')}
+      <div class="rating-row">
+        <span class="rating-label">Your rating</span>
+        <div class="stars" id="attr-${a.id}">
+          ${[1,2,3,4,5].map(n => `<div class="star" data-attr="${a.id}" data-val="${n}">${n}</div>`).join('')}
+        </div>
+      </div>
+    </div>`).join('');
+
+  const scaleKey = Object.entries(SCALE_LABELS).map(([n,l]) =>
+    `<div class="scale-chip"><strong>${n}</strong> ${l}</div>`).join('');
+
+  const skillRows = skills.map(([skill, startVal], i) => `
+    <tr>
+      <td><span class="skill-name">${skill}</span></td>
+      <td class="center"><span class="start-badge">${startVal}</span></td>
+      <td class="center">
+        <div class="self-stars">
+          ${[1,2,3,4,5,6,7].map(n => `<div class="self-star" data-skill="${i}" data-val="${n}">${n}</div>`).join('')}
+        </div>
+      </td>
+    </tr>`).join('');
+
+  const pillarsHTML = PILLARS.map(p => `
+    <div class="pillar-card">
+      <div class="pillar-info">
+        <div class="pillar-title">${p.label} <span class="tag ${p.tagCls}">${p.label}</span></div>
+        <div class="pillar-desc">${p.desc}</div>
+      </div>
+      <div class="stars" id="pillar-${p.id}">
+        ${[1,2,3,4,5].map(n => `<div class="star" data-pillar="${p.id}" data-pval="${n}">${n}</div>`).join('')}
+      </div>
+    </div>`).join('');
+
+  document.getElementById('app').innerHTML = `
+    <div class="section">
+      <div class="player-name">${player.name}</div>
+      <div class="player-hint">Complete this honestly - it sets up your review meeting with the coaches.</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Personal attributes - rate yourself 1-5</div>
+      <div style="font-size:12px;color:var(--light);margin-bottom:16px">1 = rarely demonstrated &nbsp;&middot;&nbsp; 3 = consistently showing up &nbsp;&middot;&nbsp; 5 = elite standard, lead the group</div>
+      ${attrsHTML}
+    </div>
+
+    <div class="section">
+      <div class="section-title">Rugby performance - where are you on the scale?</div>
+      <div class="scale-key">${scaleKey}</div>
+      <div style="font-size:12px;color:var(--light);margin-bottom:14px">Your <strong style="color:var(--dark)">start-of-season rating</strong> is shown in grey. Rate yourself honestly at the end of the season.</div>
+      <table class="skill-table">
+        <thead>
+          <tr>
+            <th style="width:40%">Skill area</th>
+            <th class="center" style="width:20%">Start of season</th>
+            <th class="center" style="width:40%">End-of-season rating</th>
+          </tr>
+        </thead>
+        <tbody>${skillRows}</tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Season reflections</div>
+      <div class="reflect-grid">
+        <div>
+          <div class="q-label">What are you most proud of this season?</div>
+          <div class="q-sub">Be specific - what did you do and what impact did it have?</div>
+          <textarea id="q1" placeholder="Your answer..."></textarea>
+        </div>
+        <div>
+          <div class="q-label">Where did you fall short of your own standard?</div>
+          <div class="q-sub">Be honest - what let you down and why?</div>
+          <textarea id="q2" placeholder="Your answer..."></textarea>
+        </div>
+        <div>
+          <div class="q-label">One off-season focus</div>
+          <div class="q-sub">The one thing you will invest in most going into pre-season</div>
+          <textarea id="q3" placeholder="Your answer..."></textarea>
+        </div>
+        <div>
+          <div class="q-label">What do you need from your coaches?</div>
+          <div class="q-sub">Communication, challenge, support, game time...</div>
+          <textarea id="q4" placeholder="Your answer..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Here 2 Compete - how did you show up?</div>
+      <div style="font-size:12px;color:var(--light);margin-bottom:16px">1 = barely there &nbsp;&middot;&nbsp; 5 = set the standard</div>
+      ${pillarsHTML}
+    </div>
+
+    <div class="submit-wrap">
+      <button class="submit-btn" id="submit-btn" onclick="handleSubmit('${player.name}', '${player.id}')">Submit my reflection</button>
+      <div class="error-msg" id="error-msg">Please complete all ratings before submitting.</div>
+      <div class="toast" id="toast">Reflection submitted - your coaches will review this before your meeting.</div>
+    </div>`;
+
+  // Attr stars
+  document.querySelectorAll('.star[data-attr]').forEach(s => {
+    s.addEventListener('click', function() {
+      const attr = this.dataset.attr, val = +this.dataset.val;
+      attrRatings[attr] = val;
+      document.querySelectorAll(`.star[data-attr="${attr}"]`).forEach(x =>
+        x.classList.toggle('active', +x.dataset.val <= val));
+    });
+  });
+
+  // Skill stars
+  document.querySelectorAll('.self-star').forEach(s => {
+    s.addEventListener('click', function() {
+      const skill = this.dataset.skill, val = +this.dataset.val;
+      skillRatings[skill] = val;
+      document.querySelectorAll(`.self-star[data-skill="${skill}"]`).forEach(x =>
+        x.classList.toggle('sel', +x.dataset.val <= val));
+    });
+  });
+
+  // Pillar stars
+  document.querySelectorAll('.star[data-pillar]').forEach(s => {
+    s.addEventListener('click', function() {
+      const p = this.dataset.pillar, val = +this.dataset.pval;
+      pillarRatings[p] = val;
+      document.querySelectorAll(`.star[data-pillar="${p}"]`).forEach(x =>
+        x.classList.toggle('active', +x.dataset.pval <= val));
+    });
+  });
+}
+
+function handleSubmit(playerName, playerId) {
+  const player = PLAYERS.find(p => p.id === playerId);
+  if (!player) return;
+  const skills = Object.entries(player.ratings);
+  const allAttrs = ATTRS.every(a => attrRatings[a.id]);
+  const allSkills = skills.every((_, i) => skillRatings[String(i)]);
+  const allPillars = PILLARS.every(p => pillarRatings[p.id]);
+
+  if (!allAttrs || !allSkills || !allPillars) {
+    const err = document.getElementById('error-msg');
+    err.classList.add('show');
+    err.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  document.getElementById('error-msg').classList.remove('show');
+
+  const skillData = {};
+  skills.forEach(([skill, startVal], i) => {
+    skillData[skill + '_start'] = startVal;
+    skillData[skill + '_end'] = skillRatings[String(i)];
+  });
+
+  const payload = {
+    player: playerName,
+    submitted: new Date().toISOString(),
+    attr_leadership: attrRatings.leadership,
+    attr_coachability: attrRatings.coachability,
+    attr_toughness: attrRatings.toughness,
+    attr_workethic: attrRatings.workethic,
+    attr_resilience: attrRatings.resilience,
+    attr_selfawareness: attrRatings.selfawareness,
+    pillar_invest: pillarRatings.invest,
+    pillar_compete: pillarRatings.compete,
+    pillar_deliver: pillarRatings.deliver,
+    q_proud: document.getElementById('q1').value,
+    q_shortfall: document.getElementById('q2').value,
+    q_offseason: document.getElementById('q3').value,
+    q_coaches: document.getElementById('q4').value,
+    ...skillData
+  };
+
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(() => {
+    btn.textContent = ' Submitted';
+    document.getElementById('toast').classList.add('show');
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }).catch(() => {
+    btn.textContent = 'Submit my reflection';
+    btn.disabled = false;
+    const toast = document.getElementById('toast');
+    toast.textContent = 'Something went wrong - please try again.';
+    toast.style.background = '#a00';
+    toast.classList.add('show');
+  });
+}
+
+// Entry point - URL param = direct player link, no param = selector screen
+const player = getPlayerFromURL();
+if (player) { renderForm(player); } else { renderSelector(); }
+</script>
+</body>
+</html>
