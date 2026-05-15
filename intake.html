@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scarlets Senior Academy - New Player Self-Assessment</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #CC0000; --dark: #111; --mid: #555; --light: #999;
+    --border: #e2e2e2; --bg: #f4f4f4; --card: #fff;
+    --invest: #1a56c4; --compete: #c06010; --deliver: #1a6e2e;
+    --invest-bg: #dceeff; --compete-bg: #fff0dc; --deliver-bg: #dff5e3;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; background: var(--bg); color: var(--dark); font-size: 15px; line-height: 1.5; }
+  .page { max-width: 700px; margin: 0 auto; padding-bottom: 60px; }
+  .header { background: var(--red); color: #fff; padding: 28px 24px 22px; }
+  .header-eyebrow { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; margin-bottom: 5px; }
+  .header h1 { font-size: 21px; font-weight: 700; margin-bottom: 3px; }
+  .header-sub { font-size: 12px; opacity: .75; }
+  .section { background: var(--card); border-bottom: 1px solid var(--border); padding: 20px; }
+  .sec-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--red); margin-bottom: 14px; }
+  .sec-hint { font-size: 12px; color: var(--light); margin-bottom: 16px; }
+  .field-group { margin-bottom: 14px; }
+  .field-group label { display: block; font-size: 12px; color: var(--mid); font-weight: 600; margin-bottom: 5px; }
+  .field-group input { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 15px; font-family: inherit; background: var(--bg); color: var(--dark); }
+  .field-group input:focus { outline: none; border-color: var(--red); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .scale-key { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+  .chip { font-size: 11px; padding: 4px 10px; border-radius: 20px; background: var(--bg); border: 1px solid var(--border); color: var(--mid); }
+  .chip b { color: var(--red); }
+  .scale-desc { font-size: 12px; color: var(--light); margin-bottom: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .scale-desc-row { display: flex; gap: 10px; margin-bottom: 4px; align-items: flex-start; }
+  .scale-desc-row:last-child { margin-bottom: 0; }
+  .scale-num { font-weight: 700; color: var(--red); min-width: 16px; font-size: 13px; }
+  .scale-text { font-size: 12px; color: var(--mid); }
+  table.skill-table { width: 100%; border-collapse: collapse; }
+  .skill-table th { font-size: 11px; font-weight: 500; color: var(--light); padding: 7px 6px; text-align: left; border-bottom: 1.5px solid var(--border); }
+  .skill-table th.center { text-align: center; }
+  .skill-table td { padding: 9px 6px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .skill-table td.center { text-align: center; }
+  .skill-name { font-size: 14px; font-weight: 500; }
+  .sstars { display: flex; gap: 3px; justify-content: center; flex-wrap: wrap; }
+  .sstar { width: 30px; height: 30px; border-radius: 6px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--light); transition: background .1s, color .1s; user-select: none; -webkit-tap-highlight-color: transparent; }
+  .sstar.on { background: var(--red); color: #fff; border-color: var(--red); }
+  .attr-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 10px; }
+  .attr-head { display: flex; align-items: center; gap: 7px; margin-bottom: 9px; }
+  .attr-title { font-size: 14px; font-weight: 700; }
+  .tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+  .tag-i { background: var(--invest-bg); color: var(--invest); }
+  .tag-c { background: var(--compete-bg); color: var(--compete); }
+  .tag-d { background: var(--deliver-bg); color: var(--deliver); }
+  .subq { font-size: 12px; color: var(--mid); margin-bottom: 3px; }
+  .rating-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .rating-lbl { font-size: 11px; color: var(--light); min-width: 68px; }
+  .stars { display: flex; gap: 4px; }
+  .star { width: 34px; height: 34px; border-radius: 7px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--light); transition: background .1s, color .1s; user-select: none; -webkit-tap-highlight-color: transparent; }
+  .star.on { background: var(--red); color: #fff; border-color: var(--red); }
+  .reflect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 520px) { .reflect-grid { grid-template-columns: 1fr; } .field-row { grid-template-columns: 1fr; } .sstars { gap: 2px; } .sstar { width: 26px; height: 26px; font-size: 11px; } }
+  .qlbl { font-size: 12px; font-weight: 700; color: var(--mid); margin-bottom: 3px; }
+  .qsub { font-size: 11px; color: var(--light); margin-bottom: 7px; }
+  textarea { width: 100%; min-height: 80px; padding: 9px 11px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; resize: vertical; background: var(--bg); color: var(--dark); }
+  textarea:focus { outline: none; border-color: var(--red); }
+  .pillar-card { display: flex; align-items: center; gap: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 13px 14px; margin-bottom: 10px; flex-wrap: wrap; }
+  .pillar-info { flex: 1; min-width: 140px; }
+  .pillar-title { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 7px; margin-bottom: 2px; }
+  .pillar-desc { font-size: 11px; color: var(--light); }
+  .submit-section { background: var(--card); padding: 20px; }
+  .sub-btn { width: 100%; background: var(--red); color: #fff; border: none; padding: 15px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; }
+  .sub-btn:disabled { opacity: .5; cursor: default; }
+  .errmsg { color: var(--red); font-size: 12px; margin-top: 8px; display: none; }
+  .errmsg.show { display: block; }
+  .toast { display: none; background: #1a6e2e; color: #fff; padding: 14px 18px; border-radius: 10px; margin-top: 14px; font-size: 13px; font-weight: 600; }
+  .toast.show { display: block; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="header-eyebrow">Scarlets Senior Academy</div>
+    <h1>New player self-assessment</h1>
+    <div class="header-sub">Here 2 Compete - Be honest, be accurate</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Your details</div>
+    <div class="field-group">
+      <label>Full name</label>
+      <input type="text" id="player-name" placeholder="Enter your full name">
+    </div>
+    <div class="field-row">
+      <div class="field-group">
+        <label>Position</label>
+        <input type="text" id="player-pos" placeholder="e.g. Openside flanker">
+      </div>
+      <div class="field-group">
+        <label>Date of birth</label>
+        <input type="date" id="player-dob">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field-group">
+        <label>Previous club</label>
+        <input type="text" id="player-club" placeholder="e.g. Carmarthen Quins">
+      </div>
+      <div class="field-group">
+        <label>Date</label>
+        <input type="date" id="player-date">
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Rugby performance - where are you on the scale?</div>
+    <div class="sec-hint">Rate yourself honestly across each skill area using the scale below. This is your starting point - not a judgement.</div>
+    <div class="scale-key">
+      <div class="chip"><b>1</b> 18s international</div>
+      <div class="chip"><b>2</b> Welsh prem / Wales 19s</div>
+      <div class="chip"><b>3</b> SRC ready</div>
+      <div class="chip"><b>4</b> SRC silver / Wales 20s</div>
+      <div class="chip"><b>5</b> SRC gold / best Wales 20s</div>
+      <div class="chip"><b>6</b> Senior squad ready</div>
+      <div class="chip"><b>7</b> Senior squad starter</div>
+    </div>
+    <div class="scale-desc">
+      <div class="scale-desc-row"><span class="scale-num">1</span><span class="scale-text">18s international - performing at the top end of age-grade rugby</span></div>
+      <div class="scale-desc-row"><span class="scale-num">2</span><span class="scale-text">Welsh Premiership / Wales 19s - competing in senior domestic or top age-grade</span></div>
+      <div class="scale-desc-row"><span class="scale-num">3</span><span class="scale-text">SRC ready - capable of performing in regional competition</span></div>
+      <div class="scale-desc-row"><span class="scale-num">4</span><span class="scale-text">SRC silver standard - performing inconsistently at regional level / Wales 20s selection</span></div>
+      <div class="scale-desc-row"><span class="scale-num">5</span><span class="scale-text">SRC gold standard - consistently performing at regional level / best Wales 20s</span></div>
+      <div class="scale-desc-row"><span class="scale-num">6</span><span class="scale-text">Senior squad ready - knocking on the door of first team selection</span></div>
+      <div class="scale-desc-row"><span class="scale-num">7</span><span class="scale-text">Senior squad starter - performing at first team level consistently</span></div>
+    </div>
+    <table class="skill-table">
+      <thead>
+        <tr>
+          <th style="width:50%">Skill area</th>
+          <th class="center" style="width:50%">Your rating (1-7)</th>
+        </tr>
+      </thead>
+      <tbody id="skill-rows"></tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Personal attributes - rate yourself 1-5</div>
+    <div class="sec-hint">1 = rarely demonstrated  -  3 = consistently showing up  -  5 = elite standard, lead the group</div>
+    <div id="attrs"></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">About you</div>
+    <div class="reflect-grid">
+      <div>
+        <div class="qlbl">What are your biggest strengths as a player?</div>
+        <div class="qsub">Be specific - what do you do better than most?</div>
+        <textarea id="q1" placeholder="Your answer..."></textarea>
+      </div>
+      <div>
+        <div class="qlbl">What areas do you most want to improve?</div>
+        <div class="qsub">Be honest - where do you know you need to develop?</div>
+        <textarea id="q2" placeholder="Your answer..."></textarea>
+      </div>
+      <div>
+        <div class="qlbl">What are your goals this season?</div>
+        <div class="qsub">Game time, selection, personal targets...</div>
+        <textarea id="q3" placeholder="Your answer..."></textarea>
+      </div>
+      <div>
+        <div class="qlbl">What do you need from your coaches?</div>
+        <div class="qsub">Communication, challenge, support, structure...</div>
+        <textarea id="q4" placeholder="Your answer..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Here 2 Compete - how do you rate yourself across the three pillars?</div>
+    <div class="sec-hint">1 = barely there  -  5 = set the standard</div>
+    <div id="pillars"></div>
+  </div>
+
+  <div class="submit-section">
+    <button class="sub-btn" id="subbtn" onclick="handleSubmit()">Submit my assessment</button>
+    <div class="errmsg" id="errmsg">Please complete all ratings and enter your name before submitting.</div>
+    <div class="toast" id="toast">Assessment submitted - your coaches will review this shortly.</div>
+  </div>
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyC6yHBCDoVbPT1otR-scOVgr03F7ew9OpX6k4TCi-9hU83LRVELb9pWIJOsXlk0c9/exec';
+
+const SKILLS = [
+  'Ball carry', 'Attacking breakdown', 'Tackle entry',
+  'Scanning and speed to set', 'Handling', 'Aerial skills',
+  'Release work', 'Off-field habits'
+];
+
+const ATTRS = [
+  { id:'leadership', label:'Leadership', tag:'Compete', cls:'tag-c',
+    qs:['I set the standard in training - my effort and attitude is something others follow',
+        'I speak up in the hard moments, not just when things are easy',
+        'I take ownership of team performance, not just my own'] },
+  { id:'coachability', label:'Coachability', tag:'Invest', cls:'tag-i',
+    qs:['I act on feedback immediately - I dont nod and repeat the same mistake',
+        'I ask questions that show Im trying to understand the game more deeply',
+        'I invest in my development between sessions without being told to'] },
+  { id:'toughness', label:'Toughness', tag:'Compete', cls:'tag-c',
+    qs:['I compete hard when tired, underperforming or things arent going my way',
+        'I dont avoid the collision or the difficult moment - I run towards it',
+        'My body language and intensity stays high under pressure'] },
+  { id:'workethic', label:'Work ethic', tag:'Invest', cls:'tag-i',
+    qs:['My preparation is elite - recovery, nutrition, sleep, extra reps',
+        'I turn up ready, focused and on time - every session',
+        'If my teammates described my work rate, theyd say it pushes them'] },
+  { id:'resilience', label:'Resilience', tag:'Deliver', cls:'tag-d',
+    qs:['I bounce back quickly - from errors, selection decisions, injuries',
+        'I dont let one bad moment affect the next one',
+        'I finish stronger than I started regardless of what has happened'] },
+  { id:'selfawareness', label:'Self-awareness', tag:'Deliver', cls:'tag-d',
+    qs:['I have an honest, accurate picture of where I am on the scale - not inflated, not underselling',
+        'I can clearly name what is blocking my development right now',
+        'I understand how my behaviour and energy affects the environment around me'] },
+];
+
+const PILLARS = [
+  { id:'invest', label:'Invest', cls:'tag-i', desc:'Preparation, coachability, off-field habits, growth mindset' },
+  { id:'compete', label:'Compete', cls:'tag-c', desc:'Training intensity, leadership, standards, toughness' },
+  { id:'deliver', label:'Deliver', cls:'tag-d', desc:'Performance consistency, resilience, output on the pitch' },
+];
+
+const SR = {}, AR = {}, PR = {};
+
+function renderSkills() {
+  const tbody = document.getElementById('skill-rows');
+  SKILLS.forEach((skill, i) => {
+    const tr = document.createElement('tr');
+    const cells = [1,2,3,4,5,6,7].map(n =>
+      '<div class="sstar" data-si="' + i + '" data-val="' + n + '">' + n + '</div>'
+    ).join('');
+    tr.innerHTML = '<td><span class="skill-name">' + skill + '</span></td><td class="center"><div class="sstars">' + cells + '</div></td>';
+    tbody.appendChild(tr);
+  });
+  document.querySelectorAll('.sstar').forEach(s => {
+    s.addEventListener('click', function() {
+      const si = this.dataset.si, val = +this.dataset.val;
+      SR[si] = val;
+      document.querySelectorAll('.sstar[data-si="' + si + '"]').forEach(x =>
+        x.classList.toggle('on', +x.dataset.val <= val));
+    });
+  });
+}
+
+function renderAttrs() {
+  const container = document.getElementById('attrs');
+  ATTRS.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'attr-card';
+    card.innerHTML =
+      '<div class="attr-head"><span class="attr-title">' + a.label + '</span><span class="tag ' + a.cls + '">' + a.tag + '</span></div>' +
+      a.qs.map(q => '<div class="subq">- ' + q + '</div>').join('') +
+      '<div class="rating-row"><span class="rating-lbl">Your rating</span><div class="stars" id="as-' + a.id + '">' +
+      [1,2,3,4,5].map(n => '<div class="star" data-attr="' + a.id + '" data-val="' + n + '">' + n + '</div>').join('') +
+      '</div></div>';
+    container.appendChild(card);
+  });
+  document.querySelectorAll('.star[data-attr]').forEach(s => {
+    s.addEventListener('click', function() {
+      const id = this.dataset.attr, val = +this.dataset.val;
+      AR[id] = val;
+      document.querySelectorAll('.star[data-attr="' + id + '"]').forEach(x =>
+        x.classList.toggle('on', +x.dataset.val <= val));
+    });
+  });
+}
+
+function renderPillars() {
+  const container = document.getElementById('pillars');
+  PILLARS.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'pillar-card';
+    div.innerHTML =
+      '<div class="pillar-info"><div class="pillar-title">' + p.label + ' <span class="tag ' + p.cls + '">' + p.label + '</span></div><div class="pillar-desc">' + p.desc + '</div></div>' +
+      '<div class="stars" id="ps-' + p.id + '">' +
+      [1,2,3,4,5].map(n => '<div class="star" data-pillar="' + p.id + '" data-pval="' + n + '">' + n + '</div>').join('') +
+      '</div>';
+    container.appendChild(div);
+  });
+  document.querySelectorAll('.star[data-pillar]').forEach(s => {
+    s.addEventListener('click', function() {
+      const id = this.dataset.pillar, val = +this.dataset.pval;
+      PR[id] = val;
+      document.querySelectorAll('.star[data-pillar="' + id + '"]').forEach(x =>
+        x.classList.toggle('on', +x.dataset.pval <= val));
+    });
+  });
+}
+
+function handleSubmit() {
+  const name = document.getElementById('player-name').value.trim();
+  const allSkills = SKILLS.every((_, i) => SR[String(i)]);
+  const allAttrs = ATTRS.every(a => AR[a.id]);
+  const allPillars = PILLARS.every(p => PR[p.id]);
+
+  if (!name || !allSkills || !allAttrs || !allPillars) {
+    const e = document.getElementById('errmsg');
+    e.classList.add('show');
+    e.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  document.getElementById('errmsg').classList.remove('show');
+
+  const skillData = {};
+  SKILLS.forEach((skill, i) => { skillData[skill + '_rating'] = SR[String(i)]; });
+
+  const payload = {
+    player: name,
+    position: document.getElementById('player-pos').value,
+    dob: document.getElementById('player-dob').value,
+    previous_club: document.getElementById('player-club').value,
+    submitted: new Date().toISOString(),
+    form_type: 'new_player_intake',
+    attr_leadership: AR.leadership,
+    attr_coachability: AR.coachability,
+    attr_toughness: AR.toughness,
+    attr_workethic: AR.workethic,
+    attr_resilience: AR.resilience,
+    attr_selfawareness: AR.selfawareness,
+    pillar_invest: PR.invest,
+    pillar_compete: PR.compete,
+    pillar_deliver: PR.deliver,
+    q_strengths: document.getElementById('q1').value,
+    q_improve: document.getElementById('q2').value,
+    q_goals: document.getElementById('q3').value,
+    q_coaches: document.getElementById('q4').value,
+    ...skillData
+  };
+
+  const btn = document.getElementById('subbtn');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(() => {
+    btn.textContent = 'Submitted';
+    document.getElementById('toast').classList.add('show');
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }).catch(() => {
+    btn.textContent = 'Submit my assessment';
+    btn.disabled = false;
+    const toast = document.getElementById('toast');
+    toast.textContent = 'Something went wrong - please try again.';
+    toast.style.background = '#a00';
+    toast.classList.add('show');
+  });
+}
+
+renderSkills();
+renderAttrs();
+renderPillars();
+</script>
+</body>
+</html>
